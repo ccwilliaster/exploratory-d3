@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Template</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            var numelem = 10;
+            var w = 700;
+            var h = 100;
+            var svg = d3.select("body")
+                .append("svg")          // this is only making the canvas for the svg ...
+                .attr("width", w)
+                .attr("height", h);
+
+            var dataset = [];
+            for (var i=0; i<=numelem; i++) {
+                var newnumber = Math.random() * 30;
+                dataset.push(newnumber);
+            }
+
+            var circles = svg.selectAll("circle")
+                              .data(dataset)
+                            .enter()
+                              .append("circle"); // now appending circles to svg, not e.g. the document body
+
+            circles.attr("cx", function(d, i) { return 25 + (i*50); }) // i is zero-based index of the data point
+                   .attr("cy", h/2) // constant y position
+                   .attr("r", function(d) { return d; }) // r is equal to the value of the data point
+                   .attr("fill", "yellow")
+                   .attr("stroke", "red")
+                   .attr("stroke-width", function(d) {return d/5;});
+
+        </script>
+    </body>
+</html>
